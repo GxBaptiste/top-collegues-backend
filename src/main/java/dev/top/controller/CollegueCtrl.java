@@ -1,10 +1,13 @@
 package dev.top.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,24 +19,36 @@ import dev.top.repos.CollegueRepo;
 public class CollegueCtrl {
 
     @Autowired
-    private CollegueRepo CollegueRepo;
+    private CollegueRepo collegueRepo;
 
     @GetMapping
     public List<Collegue> findAll() {
-        return this.CollegueRepo.findAll();
+        return this.collegueRepo.findAll();
     }
     
-    @PatchMapping
+    @PatchMapping("/score")
     public void updateScore(Integer id, Integer score) {
-    	this.CollegueRepo.findById(id).get().setScore(score);
+    	this.collegueRepo.findById(id).get().setScore(score);
     }
     
-    @PatchMapping
-    public void updatePseudo(Integer id, String pseudo) {
-    	this.CollegueRepo.findById(id).get().setPseudo(pseudo);;
+    @PatchMapping(value = "{pseudo}")
+    public void updatePseudo(@PathVariable String pseudo, @RequestBody Map<String,String> action) {
+    	List<Collegue> collegues = findAll();
+    	for(Collegue c : collegues) {
+    		System.out.println(action.get("action"));
+    		if(c.getPseudo().equals(pseudo)) {
+    			if(action.get("action").equals("AIMER"))
+    				c.setScore(c.getScore()+10);
+    			else
+    				c.setScore(c.getScore()-5);
+    			this.collegueRepo.save(c);
+    			break;
+    		}
+    	}	
     }
-    @PatchMapping
+    
+    @PatchMapping("/photo")
     public void updatePhotoUrl(Integer id, String photo) {
-    	this.CollegueRepo.findById(id).get().setPhotoUrl(photo);
+    	this.collegueRepo.findById(id).get().setPhotoUrl(photo);
     }
 }

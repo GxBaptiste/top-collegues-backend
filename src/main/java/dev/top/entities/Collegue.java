@@ -27,6 +27,8 @@ public class Collegue {
 		this.score=score;
 		this.photoUrl=photoUrl;
 	}
+	
+	public Collegue() {}
 
 	public Integer getId() {
 		return id;
