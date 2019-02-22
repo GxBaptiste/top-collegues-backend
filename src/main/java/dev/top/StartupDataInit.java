@@ -30,8 +30,8 @@ public class StartupDataInit {
         CollegueApi c10 = new CollegueApi("GON","freecs","gon","gon.hxh","ile de la baleine","https://pm1.narvii.com/6827/59c5a5e6192c0c7f3f91cfd41bfb28d129d8b3dcv2_hq.jpg","gon",0);
         CollegueApi c12 = new CollegueApi("KILLUA","zoldik","killua","killua.hxh","Kukuru Mountain","https://pbs.twimg.com/profile_images/902127623303811072/lyRCwNfB_400x400.jpg","killua",0);
         CollegueApi c11 = new CollegueApi("HISOKA","morow","hisoka","hisoka.hxh","SDF","https://pbs.twimg.com/profile_images/1089990918004981761/xAq1K0Z7_400x400.jpg","hisoka",0);
-        CollegueApi c14 = new CollegueApi("LEOLIO","paladiknight","leolio","leolio.hxh","Inconnu","https://i.pinimg.com/originals/7a/f3/b9/7af3b90a55630aeac183907f3799f005.png","leolio",0);
-        CollegueApi c13 = new CollegueApi("KURAPIKA","kuruta","kurapika","kurapika.hxh","Base de la famille Nostrad","https://d.wattpad.com/story_parts/683181296/images/157aed278e203bbc349585021302.jpg","kurapika",0);
+        CollegueApi c14 = new CollegueApi("LEOLIO","paladiknight","leolio","leolio.hxh","Inconnu","https://pbs.twimg.com/profile_images/1029167552449183744/uUDVHZw3_400x400.jpg","leolio",0);
+        CollegueApi c13 = new CollegueApi("KURAPIKA","kuruta","kurapika","kurapika.hxh","Base de la famille Nostrad","https://sm1.narvii.com/6726/a40c93ddf714568dee291c80b8764d8e8afd165dv2_hq.jpg","kurapika",0);
         this.collegueRepo.save(c1);
         this.collegueRepo.save(c2);
         this.collegueRepo.save(c3);
