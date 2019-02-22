@@ -1,7 +1,16 @@
-package dev.top.controller;
+package dev.top.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class CollegueApi {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private String matricule;
 	private String nom;
 	private String prenom;
@@ -12,6 +21,26 @@ public class CollegueApi {
 	private String password;
 	private String photo;
 	
+	private String pseudo;
+	private int score;
+	private String photoUrl;
+
+
+
+	public int getScore() {
+		return score;
+	}
+
+
+
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
+
+
 	public CollegueApi(String matricule, String nom,String prenom, String email,String dateNaissance,String sexe,String adresse,String password, String photo) {
 		
 		this.matricule=matricule;
@@ -26,7 +55,50 @@ public class CollegueApi {
 		
 	}
 	
+
+
+
+	public CollegueApi(String matricule, String nom, String prenom, String email, String adresse, String photo,
+			String pseudo, int score) {
+		super();
+		this.matricule = matricule;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.adresse = adresse;
+		this.photoUrl = photo;
+		this.pseudo = pseudo;
+		this.score=0;
+	}
+
+
+
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+
+
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+
+
+
+
 	public CollegueApi() {}
+	
+	
+	public String getPseudo() {
+		return pseudo;
+	} 
+	
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
+
 	
 	public String getMatricule() {
 		return matricule;

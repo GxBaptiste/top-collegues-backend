@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import dev.top.entities.Collegue;
+import dev.top.entities.CollegueApi;
 import dev.top.repos.CollegueRepo;
 
 @RestController()
@@ -30,6 +31,16 @@ public class CollegueCtrl {
 	@GetMapping
 	public List<Collegue> findAll() {
 		return this.collegueRepo.findAll();
+	}
+
+	@GetMapping(value = "{matricule}")
+	public CollegueApi getPersonne(@PathVariable String matricule) {
+		List<Collegue> collegues = findAll();
+		for (Collegue c : collegues) {
+			if (c.getPseudo().equals(matricule)) {
+			}
+		}
+		return null;
 	}
 
 	@PatchMapping(value = "{pseudo}")
@@ -50,28 +61,24 @@ public class CollegueCtrl {
 		return null;
 	}
 
+
+	
 	@PostMapping
-	public void postCollegue(@RequestBody Map<String, String> action) {
-		
-		RestTemplate restTemplate = new RestTemplate();
-		 
-        // Send request with GET method and default Headers.
-		CollegueApi[] aux = restTemplate.getForObject("https://tommy-sjava.cleverapps.io/collegues", CollegueApi[].class);
-		String matricule = action.get("matricule");
-		boolean aux2=false;
-		for(CollegueApi collegueApi : aux) {
-	        if(collegueApi.getMatricule().equals(matricule)) {
-	        	Collegue c = new Collegue(action.get("pseudo"),0,action.get("URLImage"));
-	        	this.collegueRepo.save(c);
-	        	System.out.println("test1"+c.getPhotoUrl());
-	        	aux2=true;
-	        }
-		}
-		if(!aux2) {
-			System.out.println(action);
-        	Collegue c = new Collegue(action.get("pseudo"),0,action.get("URLImage"));
-        	System.out.println("test2"+c.getPhotoUrl());
-        	this.collegueRepo.save(c);
-		}     
+    public void postCollegue(@RequestBody Map<String, String> action) {
+        final String url = "https://tommy-sjava.cleverapps.io/collegues?matricule=" + action.get("matricule");
+        RestTemplate restTemplate = new RestTemplate();
+        CollegueApi[] listeCollegue = restTemplate.getForObject(url, CollegueApi[].class);
+
+        if (listeCollegue.length == 0) {
+            System.out.println("Erreur à retourner");
+        } else {
+
+            CollegueApi collegueTrouvee = listeCollegue[0];
+            System.out.println("eee"+collegueTrouvee.getPhoto());
+            Collegue collegue = new Collegue(collegueTrouvee.getPrenom(), 0, collegueTrouvee.getPhoto());
+
+            this.collegueRepo.save(collegue); // Enregistre le résultat du GetApi en BDD
+
+        }
 	}
 }
